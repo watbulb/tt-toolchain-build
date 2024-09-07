@@ -63,10 +63,10 @@ cp ~/.ssh/id_ed25519.pub pubkey/id_ed25519.pub
 $ export INSTANCE_DEFAULT_CORES=8
 $ ./fly-machine.sh -h
 $ ./fly-machine.sh create ol2
-$ ./fly-machine.sh list
 
 # List machines
-$ ol2-main:deployed
+$ ./fly-machine.sh list
+ol2-main:deployed
 
 # Start machine
 $ ./fly-machine.sh start ol2-main
