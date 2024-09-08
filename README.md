@@ -1,5 +1,7 @@
 ## TinyTapeout Local Linux Toolchain Builder
 
+![](../../workflows/docker-image/badge.svg)
+
 **Current Version: TT08**
 
 **Disk Requirement: ~13-15GB**
