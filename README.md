@@ -1,6 +1,6 @@
 ## TinyTapeout Local Linux Toolchain Builder
 
-![](../../workflows/docker-image/badge.svg)
+![docker-build](https://github.com/watbulb/tt-toolchain-build/actions/workflows/docker-image.yml/badge.svg)
 
 **Current Version: TT08**
 
