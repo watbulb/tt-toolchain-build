@@ -71,7 +71,7 @@ RUN  chmod +x /*.sh
 
 # Public Keys
 COPY pubkey/* /root/.ssh/
-RUN  test -f /root/.ssh/*.pub && cat /root/.ssh/*.pub >> /root/.ssh/authorized_keys && \
+RUN  cat /root/.ssh/*.pub >> /root/.ssh/authorized_keys && \
      rm   -f /root/.ssh/*.pub
 
 # Profile
