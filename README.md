@@ -1,5 +1,7 @@
 ## TinyTapeout Local Linux Toolchain Builder
 
+![docker-build](https://github.com/watbulb/tt-toolchain-build/actions/workflows/docker-image.yml/badge.svg)
+
 **Current Version: TT08**
 
 **Disk Requirement: ~13-15GB**

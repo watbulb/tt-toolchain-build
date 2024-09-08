@@ -72,7 +72,7 @@ RUN  chmod +x /*.sh
 # Public Keys
 COPY pubkey/* /root/.ssh/
 RUN  cat /root/.ssh/*.pub >> /root/.ssh/authorized_keys && \
-     rm  /root/.ssh/*.pub
+     rm   -f /root/.ssh/*.pub
 
 # Profile
 RUN echo "source $VOLUME_ROOT/syn.env && cd $VOLUME_ROOT" >> ~/.profile
