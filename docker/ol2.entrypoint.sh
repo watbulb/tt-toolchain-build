@@ -12,6 +12,7 @@ service ssh start
 # Ensure a non-temporal storage is attached
 if [[ ! -d $VOLUME_ROOT ]]; then
   echo "[$PREFIX] FATAL: NO VOLUME ATTACHED!"
+  exit 255
 fi
 
 # Build toolchain
