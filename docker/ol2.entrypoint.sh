@@ -173,7 +173,7 @@ EOF
   # does not yet include the patch to install CUDD
   echo "[ol2:$VSE_VERSION] CUDD: [$CUDD_ROOT:$CUDD_TAG]"
   if [[ ! -d $CUDD_ROOT ]]; then
-    git clone --depth=1 -b $CUDD_TAG https://github.com/The-OpenROAD-Project/cudd.git
+    git clone --depth=1 -b $CUDD_TAG https://github.com/The-OpenROAD-Project/cudd.git $CUDD_ROOT
   fi
   if [[ ! -f $CUDD_ROOT/.built ]]; then
     pushd $CUDD_ROOT
