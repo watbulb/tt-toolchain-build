@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   pull_request:
     branches: [ "main", "ci-test", "tt08", "tt09" ]
+  release:
+    types: [published]
 
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
