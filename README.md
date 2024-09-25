@@ -31,6 +31,7 @@ Default **VOLUME_ROOT**: `/mnt/output`
 [KLayout](https://github.com/RTimothyEdwards/magic)            | ~`29.1`                                    | Physical Layout (Option 2)                                                                          |
 [Netgen](https://github.com/smunaut/netgen)                    | `fix-assign-implicit-lhs`                  | LVS                                                                                                 |
 [NGSpice](https://sourceforge.net/projects/ngspice/)           | `ngspice-43`                               | Analog Simulation. Uses KLU                                                                         |
+[GTKWave](https://salsa.debian.org/electronics-team/gtkwave)   | `3.3.120-1`                                | VCD / XSCHEM RAW Wave Browser                                                                       |
 [SkyWater PDK](https://github.com/RTimothyEdwards/open_pdks)   | `bdc9412b3e468c102d01b7cf6337be06ec6e9c9a` | `PDK=sky130A` (waiting for skywater DRC update)                                                     |
 
 >[!NOTE]
