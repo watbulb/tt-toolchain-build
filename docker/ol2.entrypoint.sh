@@ -226,10 +226,13 @@ EOF
       # sed -i 's/"$(uname -m)" == "aarch64"/"$(uname -m)" == "x86_64"/g' ./etc/DependencyInstaller.sh
       # sed -i 's/_installOrTools "debian" "${version}"/_installOrTools "debian" "11"/g' ./etc/DependencyInstaller.sh || :
 
-      ## TT09: Force or-tools 9.11.4210 for debian 12 support
       if [[ "$VSE_VERSION" = "TT09" ]]; then
-        sed -i 's/9[.]5/9.11/g' ./etc/DependencyInstaller.sh
-        sed -i 's/2237/4210/g' ./etc/DependencyInstaller.sh
+        ## Force or-tools 9.11.4210 for debian 12 support
+        sed -i 's/9[.]5/9.11/g'      ./etc/DependencyInstaller.sh
+        sed -i 's/2237/4210/g'       ./etc/DependencyInstaller.sh
+        ## Debian 12 only packages 3.24 right now, we need 3.25
+        sed -i 's/3[.]24/3.25/g'     ./etc/DependencyInstaller.sh
+        ## Forgive me for my sins
         sed -i 's/md5sum/# md5sum/g' ./etc/DependencyInstaller.sh
       fi
 
