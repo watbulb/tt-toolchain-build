@@ -313,5 +313,7 @@ EOF
   touch $VOLUME_ROOT/.built
 fi
 
-echo "[ol2] stalling ($STALL) seconds"
-sleep $STALL
+if [[ "$GITHUB_ACTIONS" = "" ]]; then
+  echo "[ol2] stalling ($STALL) seconds"
+  sleep $STALL
+fi
