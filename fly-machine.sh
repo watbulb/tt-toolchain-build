@@ -6,9 +6,9 @@ set -e -o pipefail
 # Default app target config
 INSTANCE_DEFAULT_CONFIG="ol2"
 # Default prefix for all apps
-INSTANCE_PREFIX=${INSTANCE_PREFIX:-"main"}
+INSTANCE_PREFIX=${INSTANCE_PREFIX:-"tt09"}
 # Default instance cores
-INSTANCE_DEFAULT_CORES=${INSTANCE_DEFAULT_CORES:-"8"}
+INSTANCE_DEFAULT_CORES=${INSTANCE_DEFAULT_CORES:-"4"}
 # Default instance type
 INSTANCE_DEFAULT_TYPE="performance-${INSTANCE_DEFAULT_CORES}x"
 
@@ -47,7 +47,7 @@ wait_machine_state() {
 
 if [[ $# -gt 1 || "$1" = "list" ]]; then
   declare -a CURRENT_APPS=$(
-    fly app list | grep $INSTANCE_PREFIX | grep -v base | tr -d ' ' | tr '\t' ','
+    fly app list | grep $INSTANCE_DEFAULT_CONFIG | grep -v base | tr -d ' ' | tr '\t' ','
   )
 fi
 
@@ -94,6 +94,7 @@ case $1 in
             --config /dev/null \
             --app $app_name \
             --build-only \
+            --build-arg REGISTRY="registry.fly.io" \
             --regions iad \
             --vm-size $INSTANCE_DEFAULT_TYPE \
             --dockerfile "./docker/$app_config.dockerfile" \
@@ -115,16 +116,17 @@ case $1 in
             --port 1122:22 \
             --vm-size $INSTANCE_DEFAULT_TYPE \
             --kernel-arg "$CMDLINE_OPTIONS" \
-            --volume $app_volname:/mnt/output:rw
+            --volume $app_volname:/mnt/output:rw \
+            --autostart=false
 
         # Wait for machine to be created
         wait_machine_state $app_name stopped
 
+        # XXX: we probably shouldn't assume it needs to be started
         # Start app instance
-        fly machine start -a $app_name
-
+        # fly machine start -a $app_name
         # Wait for machine to be deployed
-        wait_machine_state $app_name started
+        # wait_machine_state $app_name started
         ;;
     scale)
         shift
@@ -158,6 +160,7 @@ case $1 in
             --dockerfile "./docker/$app_config.dockerfile" \
             --image-label "latest" \
             --build-only \
+            --build-arg REGISTRY="registry.fly.io" \
             --push
 
         # Update machines in app
@@ -166,6 +169,7 @@ case $1 in
             --app $app_name \
             --image "registry.fly.io/$app_name:latest" \
             --metadata "DEPLOY_ID=$RANDOM"
+
         wait_machine_state $app_name started
         ;;
     destroy)

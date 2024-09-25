@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: VSE Docker Image CI
 
 on:
   push:
@@ -6,15 +6,42 @@ on:
   pull_request:
     branches: [ "main", "ci-test", "tt08", "tt09" ]
 
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
+
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker base image
-      run: docker build -t ol2-base -f docker/base.dockerfile .
-    - name: Build the Docker main image
-      run: docker build -t ol2-main -f docker/ol2.dockerfile .
+      - uses: actions/checkout@v4
+      - name: Build the Docker base image
+        run: |
+          docker build \
+            -t ghcr.io/watbulb/ol2-base \
+            -f ${{ github.workspace }}/docker/base.dockerfile \
+            ${{ github.workspace }}
+
+      - name: Build the Docker main image
+        run: |
+					docker build  \
+						--build-arg REGISTRY="ghcr.io/watbulb" \
+						-t "ghcr.io/watbulb/ol2:${BRANCH_NAME}" \
+						-f ${{ github.workspace }}/docker/ol2.dockerfile \
+						${{ github.workspace }}
+
+      - name: Run the inner toolchain builder
+        run: |
+          mkdir -p ${{ github.workspace }}/vol
+          docker run \
+						-t "ghcr.io/watbulb/ol2:${BRANCH_NAME}" \
+						--volume ${{ github.workspace }}/vol:/mnt/output
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+			- name: Push container to github registry
+        run: docker push ghcr.io/watbulb/ol2:${BRANCH_NAME}

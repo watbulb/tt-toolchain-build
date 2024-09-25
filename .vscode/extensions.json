@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "zhutmost.vscode-svlint",
+        "dalance.svls-vscode",
+        "bitwisecook.tcl",
+        "ms-pyright.pyright",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "redhat.vscode-yaml",
+        "surfer-project.surfer"
+    ]
+}
