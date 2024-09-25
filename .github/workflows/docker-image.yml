@@ -1,8 +1,6 @@
 name: VSE Docker Image CI
 
 on:
-  push:
-    branches: [ "main", "ci-test", "tt08", "tt09" ]
   pull_request:
     branches: [ "main", "ci-test", "tt08", "tt09" ]
 
