@@ -1,6 +1,7 @@
 name: VSE Docker Image CI
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [ "main", "ci-test", "tt08", "tt09" ]
 
