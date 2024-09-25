@@ -23,18 +23,18 @@ jobs:
 
       - name: Build the Docker main image
         run: |
-					docker build \
-						--build-arg REGISTRY="ghcr.io/watbulb" \
-						-t "ghcr.io/watbulb/ol2:$BRANCH_NAME" \
-						-f ${{ github.workspace }}/docker/ol2.dockerfile \
-						${{ github.workspace }}
+          docker build \
+            --build-arg REGISTRY="ghcr.io/watbulb" \
+            -t "ghcr.io/watbulb/ol2:$BRANCH_NAME" \
+            -f ${{ github.workspace }}/docker/ol2.dockerfile \
+            ${{ github.workspace }}
 
       - name: Run the inner toolchain builder
         run: |
           mkdir -p ${{ github.workspace }}/vol
           docker run \
-						-t "ghcr.io/watbulb/ol2:$BRANCH_NAME" \
-						--volume ${{ github.workspace }}/vol:/mnt/output
+           -t "ghcr.io/watbulb/ol2:$BRANCH_NAME" \
+            --volume ${{ github.workspace }}/vol:/mnt/output
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -43,5 +43,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-			- name: Push container to github registry
+      - name: Push container to github registry
         run: docker push ghcr.io/watbulb/ol2:$BRANCH_NAME
