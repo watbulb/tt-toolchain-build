@@ -58,6 +58,37 @@ ls -la $PWD/vol/.built
 docker run -it ol2:tt09 --volume $PWD/vol:/mnt/output
 ```
 
+### XPRA (Optional)
+
+Included in the build is a copy of [XPRA](https://xpra.org/index.html).
+XPRA allows us to create a simple managed X server daemon which we can run our applications on. Through this we can connect to them remotely
+or locally through the docker network. (Be sure to create a docker network you can access if you choose this)
+
+**Usage:**
+
+```
+# Start XPRA on localhost:3000
+# This creates DISPLAY=:0 on localhost:3000 with `xterm` running (install it)
+xpra start --start="xterm" --bind-tcp=localhost:3000
+
+# Run a program on existing display (by display index)
+xpra control 0 start "xterm"
+xpra control 0 start "magic -rcfile <...>" 
+
+# View your server (Ctrl+P for simple browser)
+http://localhost:3000
+
+# Manage connection options (clipboard audio, keyboard, auth, etc)
+http://localhost:3000/connect.html
+
+# Shutdown the index 0 daemon
+xpra stop 0
+```
+
+You should be able to now navigate to `http://localhost:3000` in a web-browser, and access any app you run on the server.
+
+![image](https://github.com/user-attachments/assets/4cd045bf-2bd2-433b-8e58-5f8ccf3c1508)
+
 ---
 
 ### Alternative: Run on fly.io
